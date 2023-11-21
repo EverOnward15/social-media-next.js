@@ -14,12 +14,14 @@
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.38.4",
+    "dotenv": "^16.3.1",
     "javascript-time-ago": "^2.5.9",
     "next": "^14.0.3",
     "next-auth": "^4.24.5",
     "react": "^18",
     "react-clickout-ts": "^2023.6.1",
     "react-dom": "^18",
+    "react-spinners": "^0.13.8",
     "react-time-ago": "^7.2.1"
   },
   "devDependencies": {

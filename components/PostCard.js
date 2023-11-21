@@ -2,31 +2,35 @@
 import Card from "./Card";
 import Avatar from "./Avatar";
 import { ClickOutHandler } from 'react-clickout-ts'
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Link from "next/link";
 import { formatTimeAgo } from "@/app/helpers/InitTimeAgo";
+import { UserContext } from "./contexts/UserContext";
 
-export default function({content, created_at, profiles:profile}) {
+
+export default function({content, created_at, photos, profiles: profiles}) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const ignoreRef = useRef(null);
+    const unixTimestamp = new Date(created_at).getTime() / 1000;
+    const {profile: myProfile} = useContext(UserContext);
     return(
         <Card>
         <div className="flex gap-3">
           <div>
-            <Link href={"/profile"}>
+            <Link href={"/profile/" + profiles?.id }>
                 <span className="hover:cursor-pointer">
-                    <Avatar url={profile?.avatar}></Avatar>
+                    <Avatar url={profiles?.avatar}></Avatar>
                 </span>
             </Link>
           </div>
           <div className="grow">
             <p>
                 <span className="font-semibold hover:underline cursor-pointer">
-                    {profile.name}
+                    {profiles?.name} 
                 </span> shared a <span className="text-socialBlue">post</span>
             </p>
             <p className="text-gray-500 text-sm">
-                {formatTimeAgo(created_at)}
+                 {/* {formatTimeAgo(created_at)}  */}
             </p>
           </div>
           <div>
@@ -79,9 +83,19 @@ export default function({content, created_at, profiles:profile}) {
             <p className="my-3 text-sm">
             {content}
             </p>
-            <div className="overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1515843224178-84cc9043477c?auto=format&fit=crop&q=80&w=2987&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></img>
+            {photos?.length>0 && (
+                <div className="flex gap-4">
+            {photos.map(photo => (
+                <div className="">
+                    <img src={photo} className="rounded-md h-auto"></img>
+                </div>
+            ))}
             </div>
+            )}
+
+            {/* <div className="overflow-hidden rounded-md">
+                <img src="https://images.unsplash.com/photo-1515843224178-84cc9043477c?auto=format&fit=crop&q=80&w=2987&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></img>
+            </div> */}
             <div className="mt-3 flex gap-8">
                 <button className="flex gap-2 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -104,7 +118,7 @@ export default function({content, created_at, profiles:profile}) {
             </div>
             <div className="flex mt-4 gap-3">
                 <div>
-                <Avatar></Avatar>
+                <Avatar url={profiles?.avatar}></Avatar>
                 </div>
                 <div className="border grow rounded-full relative">
                 <textarea className="block w-full p-3 px-4 h-12 overflow-hidden mb-1 rounded-full" placeholder="Leave a comment"></textarea>

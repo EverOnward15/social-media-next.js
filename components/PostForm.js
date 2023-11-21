@@ -2,13 +2,16 @@
 import Card from "./Card.js"
 import avatar from "../pics/avatar.jpeg"
 import Avatar from "./Avatar.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import supabase from "@/app/helpers/InitSupabase.js";
+import Spinner from "./Spinner.js"
 
 export default function PostForm() {
     const [profile, setProfile] = useState(null);
     const[userID, setUserID] = useState(null);
     const [content, setContent] = useState("");
+    const [uploads, setUploads] = useState([]);
+    const [uploading, setUploading] = useState(false);
      useEffect(() => {
         async function fetchSession() {
            const { data: { user } } = await supabase.auth.getUser();
@@ -16,7 +19,6 @@ export default function PostForm() {
            .select()
            .eq("id", user.id)
            .then(result => {
-            console.log(result);
             if(result.data.length) {
                 setProfile(result.data[0])
                 setUserID(user.id);
@@ -30,13 +32,36 @@ export default function PostForm() {
         .insert({
             author: userID,
             content,
+            photos: uploads,
         }).then (response => {
             if (!response.error){
                 setContent("");
+                setUploads([]);
                 alert("Post created");
             }
         });
      }
+
+    async function addPhotos(e) {
+        const files = e.target.files;
+        if (files.length > 0 ) {
+            setUploading(true); 
+        for (const file of files){
+            const newName = Date.now() + file.name;
+            const result = await supabase.storage.from("photos")
+            .upload(newName, file);
+            if(result.data){
+                // const url = `"https://dwxuqztqiskahoyvwxbn.supabase.co/storage/v1/object/public/photos/${result.data.path}"`;
+                 const url = "https://dwxuqztqiskahoyvwxbn.supabase.co/" + "storage/v1/object/public/photos/" + result.data.path;
+                 console.log(url);
+                 setUploads(prevUploads => [...prevUploads, url]);
+             }
+             else alert("abc");
+             };
+             setUploading(false);
+        }
+    }
+    
 
     return(
         <Card>
@@ -47,7 +72,31 @@ export default function PostForm() {
                 <textarea value={content} onChange={function (e) {setContent(e.target.value)}} 
                 className="grow p-3 h-14 border-4 border-gray-50" placeholder={`Care to share, ${(profile) ? profile?.name : `user`}?`}></textarea>
             </div>
+            {uploading && (
+                <div key={created_at}>
+                    <Spinner></Spinner>
+                </div>
+            )}
+            {uploads.length > 0 && (
+                <div className="flex gap-2">
+                {uploads.map(upload => (
+                    <div className="mt-2">
+                        <img className="w-auto h-24 rounded-md" src={upload}></img>
+                    </div>
+                ))}
+                </div>
+            )}
+
             <div className="flex gap-5 items-center mt-2">
+                <div className="md:ml-16 ml-8">
+                    <label className="flex md:gap-1 hover:cursor-pointer">
+                    <input type="file" multiple="multiple" className="hidden" onChange={addPhotos}></input>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                        <span className="hidden md:block">Photos</span>
+                    </label>
+                </div>
                 <div>
                     <button className="flex md:gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

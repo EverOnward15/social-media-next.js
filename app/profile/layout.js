@@ -3,29 +3,96 @@ import Sidebar from "@/components/Sidebar"
 import Card from "@/components/Card"
 import Avatar from "@/components/Avatar"
 import Link from "next/link"
-import Layout from "@/components/MainLayout"
+import MainLayout from "@/components/MainLayout"
 import PostCard from "@/components/PostCard"
 import { usePathname } from "next/navigation";
-
+import { formatTimeAgo } from "@/app/helpers/InitTimeAgo";
+import { useState, useEffect } from "react";
+import supabase from "@/app/helpers/InitSupabase.js";
+import { fetchIpInfo } from "@/app/helpers/IPInfoContext";
+import Cover from "@/components/Cover";
 
 export default function ProfileLayout({children}) {
     const activeTab = "md:ml-3 ml-8 md:p-2 p-1 justify-evenly flex gap-2 items-center border-b-4 border-socialBlue text-socialBlue";
     const inactiveTab = "md:ml-3 ml-8 md:p-3 p-1 justify-evenly flex gap-2 items-center";
     const pathname = usePathname();
+    const [session, setSession] = useState(null); //For storing Supabase session object which also contains currently logged in user information
+    const [ipInfo, setIpInfo] = useState(null);
+    const userId = session?.id;
+    const [profile, setProfile] = useState(null);
+    const isMyUser = userId === getUrlID();
+    const profileUserID = getUrlID();
+    console.log(pathname);
+    
+    //Check to see if the url ID in the path name is the same as logged in user for authentication.
+    function getUrlID () {
+        const abc = pathname;
+        const repStr = abc.replace(/\/profile\//g, "");
+        return repStr;
+    }
+
+    useEffect(() => {
+        async function fetchfastSession() {
+          const { data: {session} } = await supabase.auth.getSession();
+          const sessioninfo = session?.user;
+          setSession(sessioninfo);  
+        }
+        fetchfastSession();
+      }, []);
+      console.log(session);
+
+      useEffect(() => {
+        // Fetch IP information once and store it in a variable
+        async function fetchAndStoreIpInfo() {
+          const ipInfo = await fetchIpInfo();
+          console.log('IP information fetched:', ipInfo);
+          setIpInfo(ipInfo);
+        }
+        fetchAndStoreIpInfo();
+      }, []);
+
+    // Fetch profile cover photo (Has to be done again because it's a different layout, also user has to be refetched.)
+    useEffect(() => { 
+        async function fetchProfile() {
+           await supabase.from("profiles")
+           .select("created_at, avatar, name, cover")
+           .eq("id", profileUserID)
+           .then(result => {
+            if(result.data.length) {
+                setProfile(result.data[0])
+            }
+            if(result.error){console.log(result.error)}
+           });
+          }
+          fetchProfile()
+     }, [userId]);
+
+     function fetchUser() {
+        supabase.from("profiles")
+           .select("created_at, avatar, name, cover")
+           .eq("id", profileUserID)
+           .then(result => {
+            if(result.data.length) {
+                setProfile(result.data[0])
+            }
+            if(result.error){console.log(result.error)}
+           });
+     }
+     
     return (
-        <Layout>
+        <MainLayout>
             <Card noPadding={true}>
                     <div className="relative overlfow-hidden">
-                        <div className="h-40 justify-center items-center rounded-md flex overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1446038202205-1c96430dbdab?q=80&w=2969&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""></img>
-                        </div>
-                        <div className="absolute top-14 pt-16 left-4">
-                            <Avatar size={'big'}></Avatar>
+                       <Cover url={profile?.cover} editable={isMyUser} onChange={fetchUser}></Cover>
+                        <div className="absolute top-14 pt-16 left-4 z-20">
+                            {session &&
+                            <Avatar url ={profile?.avatar} editable={isMyUser} onChange={fetchUser} size={'big'}></Avatar>
+                            }
                         </div>
                         <div className="md:p-4 p-3 pb-0">
                             <div className="md:ml-36 ml-24">
-                                <h1 className="md:text-2xl font-bold">Prathamesh Bhoite</h1>
-                                <div className="text-grey-500 leading-5">Pune, India</div>
+                                <h1 className="md:text-2xl font-bold">{session?.user_metadata.name}</h1>
+                                <div className="text-grey-500 leading-5">{ipInfo?.city}, {ipInfo?.country} </div>
                             </div>
                             <div className="flex gap-1">
                                 <Link href="/profile/posts" className={pathname === "/profile" || pathname === "/profile/posts" ? activeTab : inactiveTab}>
@@ -57,6 +124,6 @@ export default function ProfileLayout({children}) {
                     </div>
                 </Card>
                 {children}
-                </Layout>
+                </MainLayout>
     )
   }
