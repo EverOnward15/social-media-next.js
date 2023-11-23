@@ -1,6 +1,6 @@
 "use client";
 import Card from "@/components/Card";
-import LightboxGallery from "@/components/LightBox";
+import LightboxGallery from "@/app/helpers/LightBox";
 
 export default function Photos() {
     return(
