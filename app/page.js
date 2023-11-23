@@ -12,14 +12,14 @@ export default function Home() {
    
   useEffect(() => {
     async function fetchSession() {
-        const { data: { user } } = await supabase.auth.getUser();
+      const { data: {session} } = await supabase.auth.getSession();
         supabase.from("posts")
         .select("id, content, created_at, photos, profiles(id, avatar, name)")
         .is("parent", null) 
         .order('created_at', { ascending: false })
         .then( result => {
           setPosts(result.data);
-          setUser(user);
+          setUser(session?.user);
         }
         )
     }
@@ -44,7 +44,6 @@ export default function Home() {
     return ( 
       user ? (
         <MainLayout>
-         
             <PostForm/>
             {posts?.length>0 && posts.map(post => (
             <PostCard key={post.id} {...post}/>
