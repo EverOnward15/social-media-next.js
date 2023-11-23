@@ -18,7 +18,7 @@ export default function Home() {
         .is("parent", null) 
         .order('created_at', { ascending: false })
         .then( result => {
-          setPosts(result.data);
+          setPosts(result?.data);
           setUser(session?.user);
         }
         )
@@ -34,24 +34,23 @@ export default function Home() {
           .is("parent", null) 
           .order('created_at', { ascending: false })
           .then( result => {
-            setPosts(result.data);
+            setPosts(result?.data);
           }
           )
       }
       fetchPosts();
     }, [posts]);
 
+    if(user === null){
+      return <LoginPage></LoginPage>
+    }
+
     return ( 
-      user ? (
         <MainLayout>
             <PostForm/>
             {posts?.length>0 && posts.map(post => (
             <PostCard key={post.id} {...post}/>
             ))}
-
         </MainLayout>
-      ) : (
-        <LoginPage user={user}></LoginPage>
-      )
   )
 }
