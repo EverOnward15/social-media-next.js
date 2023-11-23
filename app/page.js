@@ -13,34 +13,16 @@ export default function Home() {
   const[posts, setPosts] = useState([]);
   const [profile, setProfile] = useState(null);
    
-  // Fetch profile data and pass it down (later)
-  useEffect(() => { 
-    async function fetchProfile() {
-       const { data: { user } } = await supabase.auth.getUser();
-      
-       await supabase.from("profiles")
-       .select("created_at, avatar, name, cover")
-       .eq("id", user.id)
-       .then(result => {
-        if(result.data.length) {
-            setProfile(result.data[0])
-        }
-        if(result.error){console.log(result.error)}
-       });
-      }
-      fetchProfile()
- }, []);
-
-  //Fetch session information from Supabase and also get posts information 
   useEffect(() => {
     async function fetchSession() {
         const { data: { user } } = await supabase.auth.getUser();
-        setUser(user);
         supabase.from("posts")
         .select("id, content, created_at, photos, profiles(id, avatar, name)")
+        .is("parent", null) 
         .order('created_at', { ascending: false })
         .then( result => {
           setPosts(result.data);
+          setUser(user);
         }
         )
     }
@@ -52,6 +34,7 @@ export default function Home() {
       async function fetchPosts() {
           await supabase.from("posts")
           .select("id, content, created_at, photos, profiles(id, avatar, name)")
+          .is("parent", null) 
           .order('created_at', { ascending: false })
           .then( result => {
             setPosts(result.data);
@@ -60,7 +43,7 @@ export default function Home() {
       }
       fetchPosts();
     }, [posts]);
-    
+
     return ( 
       user ? (
         <MainLayout>

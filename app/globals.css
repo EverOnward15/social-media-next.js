@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* styles/lightbox2.css */
+@import '~lightbox2/dist/css/lightbox.css';
+
 
 body {
   background-color: #F5F7FB;

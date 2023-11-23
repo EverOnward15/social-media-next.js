@@ -1,5 +1,4 @@
 "use client";
-require('dotenv').config();
  import { createBrowserClient } from '@supabase/ssr'
 
 // //A way to initialize the Supabase client only once, and use it everywhere in the app as needed by importing the "supabase" module
@@ -13,3 +12,16 @@ require('dotenv').config();
 
 // // import { createClient } from '@supabase/supabase-js'
 // // export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+
+//HARD FETCH SESSION
+
+    // useEffect(() => {
+    //     async function fetchSession() {
+    //         const { data: { user } } = await supabase.auth.getUser();
+    //         setUser(user.id);
+    //         fetchLikes();
+    //         fetchComments();
+    //     }
+    //     fetchSession()
+    //   }, [])
