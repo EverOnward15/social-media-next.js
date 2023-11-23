@@ -19,11 +19,11 @@ export default function PostForm() {
            const { data: { user } } = await supabase.auth.getUser();
            await supabase.from("profiles")
            .select()
-           .eq("id", user.id)
+           .eq("id", user?.id)
            .then(result => {
-            if(result.data.length) {
-                setProfile(result.data[0])
-                setUserID(user.id);
+            if(result?.data?.length) {
+                setProfile(result?.data[0])
+                setUserID(user?.id);
             }
            });
           }

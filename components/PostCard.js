@@ -9,8 +9,6 @@ import supabase from "@/app/helpers/InitSupabase";
 import { useEffect } from "react";
 import workingOnIt from "@/app/helpers/UnderConstruction";
 
-
-
 export default function PostCard({id = "", content = "", created_at = "", photos="", profiles: profiles=""}) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const ignoreRef = useRef(null);
@@ -26,10 +24,10 @@ export default function PostCard({id = "", content = "", created_at = "", photos
         async function fetchfastSession() {
         const { data: {session} } = await supabase.auth.getSession();
         const sessioninfo = session?.user;
-        setUser(sessioninfo.id);  
+        setUser(sessioninfo?.id);  
         fetchLikes();
         fetchComments();
-        fetchSavedPosts(sessioninfo.id);
+        fetchSavedPosts(sessioninfo?.id);
         }
         fetchfastSession();
     }, []);
@@ -42,7 +40,7 @@ export default function PostCard({id = "", content = "", created_at = "", photos
         .eq("id", session?.user.id)
         .then(result => {
             if(result.data) {
-                setNowProfile(result.data[0])
+                setNowProfile(result?.data[0])
             }
             if(result.error){console.log(result.error)}
         });
@@ -56,7 +54,7 @@ export default function PostCard({id = "", content = "", created_at = "", photos
         .eq("post_id", id)
         .eq("user_id", user)
         .then(result => {
-            if(result.data.length > 0){
+            if(result?.data?.length > 0){
                 setSaved(true)
             }
             else {

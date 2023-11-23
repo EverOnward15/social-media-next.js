@@ -13,9 +13,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchSession() {
       const { data: {session} } = await supabase.auth.getSession();
-      setUser(session?.user);
-     
-        //setUser(session?.user.id)
+        setUser(session?.user);
         supabase.from("posts")
         .select("id, content, created_at, photos, profiles(id, avatar, name)")
         .is("parent", null) 
@@ -27,6 +25,7 @@ export default function Home() {
     }
     fetchSession()
   }, [])
+
       //Call fetchPosts whenever the posts array changes. This will trigger a re-fetch when a new post is added by the user
     useEffect(() => {
       async function fetchPosts() {
@@ -35,23 +34,24 @@ export default function Home() {
           .is("parent", null) 
           .order('created_at', { ascending: false })
           .then( result => {
-            setPosts(result?.data);
+            setPosts(result.data);
           }
           )
       }
       fetchPosts();
     }, [posts]);
 
-    if(user === null){
-      return <LoginPage></LoginPage>
-    }
-
     return ( 
+      user ? (
         <MainLayout>
             <PostForm/>
             {posts?.length>0 && posts.map(post => (
             <PostCard key={post.id} {...post}/>
             ))}
+
         </MainLayout>
+      ) : (
+        <LoginPage user={user}></LoginPage>
+      )
   )
 }
