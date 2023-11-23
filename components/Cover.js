@@ -1,3 +1,4 @@
+"use client";
 import supabase from "@/app/helpers/InitSupabase.js";
 import { useState } from "react";
 import Preloader from "./Spinner";

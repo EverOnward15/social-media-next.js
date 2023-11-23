@@ -7,11 +7,6 @@ const nextConfig = {
             destination: '/',
             permanent: true,
           },
-          {
-            source: '/profile/undefined',
-            destination: '/',
-            permanent: true,
-          },
         ]
       },
 }
