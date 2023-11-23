@@ -5,7 +5,6 @@ import { ClickOutHandler } from 'react-clickout-ts'
 import { useContext, useRef, useState } from "react";
 import Link from "next/link";
 import { formatTimeAgo } from "@/app/helpers/InitTimeAgo";
-import { UserContext } from "./contexts/UserContext";
 import supabase from "@/app/helpers/InitSupabase";
 import { useEffect } from "react";
 import workingOnIt from "@/app/helpers/UnderConstruction";

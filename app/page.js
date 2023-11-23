@@ -6,7 +6,6 @@ import PostCard from "@/components/PostCard.js";
 import supabase from "@/app/helpers/InitSupabase.js";
 require('dotenv').config();
 import { useState, useEffect } from "react";
-import { UserContext } from "@/components/contexts/UserContext.js";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -47,12 +46,12 @@ export default function Home() {
     return ( 
       user ? (
         <MainLayout>
-          <UserContext.Provider value>
+         
             <PostForm/>
             {posts?.length>0 && posts.map(post => (
             <PostCard key={post.id} {...post}/>
             ))}
-          </UserContext.Provider>
+
         </MainLayout>
       ) : (
         <LoginPage></LoginPage>
