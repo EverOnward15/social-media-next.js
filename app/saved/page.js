@@ -31,7 +31,7 @@ export default function SavedPosts() {
     return(
         <MainLayout>
             <h1 className="text-5xl mb-4 text-gray-400">Saved Posts</h1>
-            {posts?.length > 0 && posts.map(post=> (
+            {posts?.length > 0 && posts?.map(post=> (
                     <PostCard key={post.id} {...post}></PostCard>   
             ))}
        </MainLayout>
