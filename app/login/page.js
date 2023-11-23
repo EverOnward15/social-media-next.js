@@ -3,17 +3,14 @@ import MainLayout from "@/components/MainLayout"
 import Card from "@/components/Card"
 import { createBrowserClient } from '@supabase/ssr'
 import supabase from "@/app/helpers/InitSupabase.js";
-import { useRouter } from 'next/navigation'
 import workingOnIt from "../helpers/UnderConstruction";
 
 
 export default function LoginPage() {
-    const router = useRouter();
     function googleLogin() { 
         supabase.auth.signInWithOAuth({
         provider: 'google',
       })
-      router.push('/')
     }
 
     return (

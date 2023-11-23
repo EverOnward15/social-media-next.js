@@ -51,7 +51,7 @@ export default function Home() {
 
         </MainLayout>
       ) : (
-        <LoginPage></LoginPage>
+        <LoginPage user={user}></LoginPage>
       )
   )
 }
