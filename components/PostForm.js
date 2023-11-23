@@ -86,7 +86,7 @@ export default function PostForm() {
                 </div>
             )}
 
-            <div className="flex gap-5 items-center mt-2">
+            <div className="flex gap-5 justify-evenly items-center mt-2">
                 <div className="md:ml-16 ml-8">
                     <label className="flex md:gap-1 hover:cursor-pointer">
                     <input type="file" multiple className="hidden" onChange={addPhotos}></input>

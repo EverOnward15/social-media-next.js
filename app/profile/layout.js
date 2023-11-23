@@ -129,12 +129,12 @@ export default function ProfileLayout({children}) {
                                         </div>
                                         )}
                                     {!editMode && (
-                                        <h1 className="md:text-2xl ml-10 font-bold">
+                                        <h1 className="md:text-2xl ml-14 font-bold">
                                            {profile?.name} 
                                         </h1>
                                         )}
                                     {!editMode &&(
-                                        <div className="text-grey-500 ml-10 leading-5">  {profile?.place || ipInfo} </div>
+                                        <div className="text-grey-500 ml-14 leading-5">  {profile?.place || ipInfo} </div>
                                     )}
                                     {editMode && (
                                         <div>
@@ -170,7 +170,7 @@ export default function ProfileLayout({children}) {
                                             </button>
                                             )}
                                             {isMyUser && editMode && (
-                                            <button onClick={(() => setEditMode(false))} className="bg-white rounded-md shadow-sm md:py-1 md:px-2 p-1 md:ml-1 shadow-gray-400 flex">
+                                            <button onClick={() => {setEditMode(false); fetchUser()}} className="bg-white rounded-md shadow-sm md:py-1 md:px-2 p-1 md:ml-1 shadow-gray-400 flex">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
@@ -180,7 +180,7 @@ export default function ProfileLayout({children}) {
                                         </div>
                                 </div>
                             </div>
-                            <div className="flex gap-1 mt-2">
+                            <div className="flex justify-evenly gap-1 mr-4 mt-2">
                                 <Link href={"/profile/" + profile?.id } className={pathname.includes("/about")  || pathname.includes("/friends") || pathname.includes("photos")
                                 ? inactiveTab 
                                 : activeTab}>
