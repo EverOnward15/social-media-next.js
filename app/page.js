@@ -42,7 +42,7 @@ export default function Home() {
     }, [posts]);
 
     return ( 
-    
+      user ? (
         <MainLayout>
          
             <PostForm/>
@@ -51,6 +51,8 @@ export default function Home() {
             ))}
 
         </MainLayout>
+      ) : (
+        <LoginPage></LoginPage>
       )
-  
+  )
 }
