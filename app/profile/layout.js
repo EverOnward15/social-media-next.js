@@ -113,7 +113,7 @@ export default function ProfileLayout({children}) {
                     <div className="relative overlfow-hidden">
                        <Cover url={profile?.cover} editable={isMyUser} onChange={fetchUser}></Cover>
                         <div className="absolute top-14 pt-16 left-4 z-20">
-                            {session &&
+                            {session !==null && editMode === false &&
                             <Avatar  size={"lg"} url ={profile?.avatar} editable={isMyUser} onChange={fetchUser}></Avatar>
                             }
                         </div>
