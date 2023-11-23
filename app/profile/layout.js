@@ -118,7 +118,7 @@ export default function ProfileLayout({children}) {
                             }
                         </div>
                         <div className="md:p-4 p-3 pb-0">
-                            <div className="md:ml-32 md:px-2 pl-16 ml-18 flex justify-between">
+                            <div className="md:ml-32 mt-2 md:px-2 pl-16 ml-18 flex justify-between">
                                 <div>
                                     {editMode && (
                                         <div>
