@@ -86,8 +86,8 @@ export default function PostForm() {
                 </div>
             )}
 
-            <div className="flex gap-5 justify-evenly items-center mt-2">
-                <div className="md:ml-16 ml-8">
+            <div className="flex gap-7 pl-3 justify-evenly items-center mt-2">
+                <div className=" md:ml-16 ml-8">
                     <label className="flex md:gap-1 hover:cursor-pointer">
                     <input type="file" multiple className="hidden" onChange={addPhotos}></input>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

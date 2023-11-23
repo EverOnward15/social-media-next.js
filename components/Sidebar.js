@@ -33,7 +33,7 @@ export default function Sidebar () {
 
     return(
         <Card noPadding={true}>
-            <div className="z-9999 sticky ml-1 mr-1 grow overflow-hidden p-1 flex justify-evenly items-center text-left md:block shadow-md shadow-gray-500 md:shadow-none pt-1">
+            <div className="z-9999 sticky pl-5 -mr-5 gap-1 grow overflow-hidden p-1 flex justify-evenly items-center text-left md:block shadow-md shadow-gray-500 md:shadow-none pt-1">
                 <h2 className="text-socialBlue text-xl font-bold md:p-1 md:mb-3 hidden md:block">Fab-book</h2>
                 <Link href={"/"} className={pathname === "/" ? activeElement : inactiveElement}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 z-1200">
