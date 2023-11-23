@@ -13,19 +13,19 @@ export default function Home() {
   useEffect(() => {
     async function fetchSession() {
       const { data: {session} } = await supabase.auth.getSession();
+      //setUser(session?.user);
+        setUser(session?.user.id)
         supabase.from("posts")
         .select("id, content, created_at, photos, profiles(id, avatar, name)")
         .is("parent", null) 
         .order('created_at', { ascending: false })
         .then( result => {
           setPosts(result?.data);
-          setUser(session?.user);
         }
         )
     }
     fetchSession()
   }, [])
-
       //Call fetchPosts whenever the posts array changes. This will trigger a re-fetch when a new post is added by the user
     useEffect(() => {
       async function fetchPosts() {
