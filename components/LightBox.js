@@ -10,7 +10,7 @@ const LightboxGallery = ({ images, group = "gallery" }) => {
     return (
         <div>
             <a href={images} key={Date.now()} data-lightbox={group} >
-              <img src={images} />
+              <img alt="" src={images} />
             </a>
           
         </div>

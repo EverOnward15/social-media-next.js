@@ -13,7 +13,7 @@ import LightboxGallery from "./LightBox";
 
 
 
-export default function({id, content, created_at, photos, profiles: profiles}) {
+export default function PostCard({id, content, created_at, photos, profiles: profiles}) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const ignoreRef = useRef(null);
     const [nowProfile, setNowProfile] = useState();
