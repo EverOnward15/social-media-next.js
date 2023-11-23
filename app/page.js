@@ -4,13 +4,11 @@ import MainLayout from "../components/MainLayout.js";
 import PostForm from "../components/PostForm.js";
 import PostCard from "@/components/PostCard.js";
 import supabase from "@/app/helpers/InitSupabase.js";
-require('dotenv').config();
 import { useState, useEffect } from "react";
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const[posts, setPosts] = useState([]);
-  const [profile, setProfile] = useState(null);
    
   useEffect(() => {
     async function fetchSession() {
@@ -44,7 +42,7 @@ export default function Home() {
     }, [posts]);
 
     return ( 
-      user ? (
+    
         <MainLayout>
          
             <PostForm/>
@@ -53,8 +51,6 @@ export default function Home() {
             ))}
 
         </MainLayout>
-      ) : (
-        <LoginPage></LoginPage>
       )
-  )
+  
 }

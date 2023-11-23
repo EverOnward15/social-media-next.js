@@ -1,12 +1,6 @@
 "use client";
-import Avatar from "@/components/Avatar";
-import MainLayout from "../../components/MainLayout";
-import Card from "@/components/Card";
-import Link from "next/link";
 import PostCard from "@/components/PostCard";
 import { usePathname } from "next/navigation";
-import ProfileLayout from "./layout";
-import PostForm from "@/components/PostForm";
 import supabase from "../helpers/InitSupabase";
 import { useState, useEffect } from "react";
 
@@ -37,7 +31,7 @@ export default function ProfilePage () {
       }, [urlID]);
 
     return(
-        <div> { posts.length>0 && posts.map(post => (
+        <div> { posts?.length>0 && posts.map(post => (
             <PostCard key={post.id}{...post}></PostCard>
         )
         )

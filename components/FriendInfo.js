@@ -1,3 +1,5 @@
+"use client"
+
 import Avatar from "./Avatar"
 export default function Friends() {
     return(

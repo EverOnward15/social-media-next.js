@@ -1,5 +1,5 @@
+"use client"
 import Sidebar from "./Sidebar"
-
 export default function MainLayout({children,hideNavigation}) {
   let rightColumClasses = "";
   if (hideNavigation) {
