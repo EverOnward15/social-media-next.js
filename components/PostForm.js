@@ -86,7 +86,7 @@ export default function PostForm() {
                 </div>
             )}
 
-            <div className="flex gap-7 pl-3 justify-evenly items-center mt-2">
+            <div className="flex gap=3 gap-7 pl-3 justify-evenly items-center mt-2">
                 <div className=" md:ml-16 ml-8">
                     <label className="flex md:gap-1 hover:cursor-pointer">
                     <input type="file" multiple className="hidden" onChange={addPhotos}></input>
@@ -121,7 +121,7 @@ export default function PostForm() {
                         <span className="hidden md:block">Mood</span>
                     </button>
                 </div>
-                <div className="grow text-right">
+                <div className="grow text-right md:pr-0 pr-7">
                     <button onClick={createPost} className="bg-socialBlue text-white px-6 md:py-2 py-1 rounded-md">
                         <span className="">Share</span>
                     </button>
