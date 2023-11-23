@@ -114,7 +114,7 @@ export default function ProfileLayout({children}) {
                        <Cover url={profile?.cover} editable={isMyUser} onChange={fetchUser}></Cover>
                         <div className="absolute top-14 pt-16 left-4 z-20">
                             {session &&
-                            <Avatar size={"lg"} url ={profile?.avatar} editable={isMyUser} onChange={fetchUser}></Avatar>
+                            <Avatar  size={"lg"} url ={profile?.avatar} editable={isMyUser} onChange={fetchUser}></Avatar>
                             }
                         </div>
                         <div className="md:p-4 p-3 pb-0">
@@ -129,12 +129,12 @@ export default function ProfileLayout({children}) {
                                         </div>
                                         )}
                                     {!editMode && (
-                                        <h1 className="md:text-2xl font-bold">
+                                        <h1 className="md:text-2xl ml-10 font-bold">
                                            {profile?.name} 
                                         </h1>
                                         )}
                                     {!editMode &&(
-                                        <div className="text-grey-500 leading-5">  {profile?.place || ipInfo} </div>
+                                        <div className="text-grey-500 ml-10 leading-5">  {profile?.place || ipInfo} </div>
                                     )}
                                     {editMode && (
                                         <div>

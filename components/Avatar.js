@@ -30,8 +30,8 @@ export default function Avatar({size, url, editable, onChange}) {
     }
     return(
         <div className={`${dimensions} overflow-hidden rounded-full hover:scale-110` }>
-            <div className="rounded-full  z-0">
-                <img src={url} className={`${dimensions} object-cover bg-white`} alt=""></img>
+            <div className="rounded-full z-0">
+                <img src={url} className={`${dimensions} overflow-hidden object-cover bg-white`} alt=""></img>
             </div>
             {uploading && (
                 <div className="absolute inset-0 flex items-center bg-white bg-opacity-50 w-2 rounded-full">
