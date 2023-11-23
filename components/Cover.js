@@ -3,7 +3,7 @@ import supabase from "@/app/helpers/InitSupabase.js";
 import { useState } from "react";
 import Preloader from "./Spinner";
 import { uploadUserProfileImage } from "@/app/helpers/user";
-import LightboxGallery from "./LightBox";
+
 
 export default function Cover({url, editable, onChange}) {
     const[uploading, setUploading] = useState(false);
@@ -27,7 +27,7 @@ export default function Cover({url, editable, onChange}) {
     return (
         <div className="h-40 justify-center rounded-md flex overflow-hidden items-center">
             <div>
-                <LightboxGallery className="object-cover" group={url} images={url} alt=""></LightboxGallery>
+                <img className="object-cover" src={url} alt=""></img>
             </div>
             {uploading && (
                 <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center z-10">

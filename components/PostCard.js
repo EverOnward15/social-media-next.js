@@ -8,7 +8,6 @@ import { formatTimeAgo } from "@/app/helpers/InitTimeAgo";
 import supabase from "@/app/helpers/InitSupabase";
 import { useEffect } from "react";
 import workingOnIt from "@/app/helpers/UnderConstruction";
-import LightboxGallery from "./LightBox";
 
 
 
@@ -230,7 +229,7 @@ export default function PostCard({id = "", content = "", created_at = "", photos
                 <div className="flex gap-4">
             {photos.map(photo => (
                 <div key={photo} className="">
-                    <LightboxGallery images={photo} group={id} className="rounded-md h-auto"></LightboxGallery>
+                    <img src={photo}  className="rounded-md h-auto"></img>
                 </div>
             ))}
             </div>

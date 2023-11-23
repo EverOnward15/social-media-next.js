@@ -6,7 +6,6 @@ import { useState, useEffect, useContext } from "react";
 import supabase from "@/app/helpers/InitSupabase.js";
 import Spinner from "./Spinner.js"
 import workingOnIt from "@/app/helpers/UnderConstruction.js";
-import LightboxGallery from "@/components/LightBox";
 
 
 export default function PostForm() {
@@ -81,7 +80,7 @@ export default function PostForm() {
                 <div className="flex gap-2">
                 {uploads.map(upload => (
                     <div key={upload} className="mt-2">
-                        <LightboxGallery className="w-auto h-24 rounded-md" images={upload} group={upload}></LightboxGallery>
+                        <img className="w-auto h-24 rounded-md" src={upload} ></img>
                     </div>
                 ))}
                 </div>
