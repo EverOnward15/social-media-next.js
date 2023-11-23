@@ -261,7 +261,7 @@ export default function PostCard({id = "", content = "", created_at = "", photos
                 </div>
                     <div className=" border grow overflow-hidden just flex rounded-full">
                         <form className="grow w-full " onSubmit={postComment}>
-                            <input required maxLength={2000} value={commentText}
+                            <input id={id} required maxLength={2000} value={commentText}
                             onChange={e=> setCommentText(e.target.value)}
                             className="w-full outline-none md:ml-5 p-3 px-4 h-12 mb-1 rounded-full" placeholder="Leave a comment"></input>
                         </form>

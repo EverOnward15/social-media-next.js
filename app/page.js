@@ -13,8 +13,9 @@ export default function Home() {
   useEffect(() => {
     async function fetchSession() {
       const { data: {session} } = await supabase.auth.getSession();
-      //setUser(session?.user);
-        setUser(session?.user.id)
+      setUser(session?.user);
+     
+        //setUser(session?.user.id)
         supabase.from("posts")
         .select("id, content, created_at, photos, profiles(id, avatar, name)")
         .is("parent", null) 
