@@ -2,8 +2,19 @@ Live: https://social-media-next-js-blond.vercel.app/
 
 Login: You need a Google account (OAuth) 
 
-Dependencies (info for developers):
+Development details: 
+Front-end - Next.js, React, Tailwind (CSS) 
+Back-end - Supabase
+
+App develpment feature highlights: 
+-- Mobile responsive
+-- Anyone can sign up, add posts, photos, etc. 
+-- OAuth with Google 
+-- REST 
+
+Third-party APIs/Modules used (info for developers):
 TimeAgo, IPinfo, React-loader-spinner
+
 
 (Development info below)
 -------------------------------------------------
