@@ -14,7 +14,7 @@ export default function PostForm() {
     const [content, setContent] = useState("");
     const [uploads, setUploads] = useState([]);
     const [uploading, setUploading] = useState(false);
-     useEffect(() => {
+    useEffect(() => {
         async function fetchSession() {
            const { data: { user } } = await supabase.auth.getUser();
            await supabase.from("profiles")
@@ -29,7 +29,12 @@ export default function PostForm() {
           }
           fetchSession()
      }, [,]);
-     function createPost() {
+
+    function createPost() {
+        if (content === "" || uploads?.length === 0)
+        {
+            return;
+        }
         supabase.from("posts")
         .insert({
             author: userID,
