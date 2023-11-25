@@ -1,5 +1,7 @@
 Live: https://social-media-next-js-blond.vercel.app/
 
+Login: You need a Google account (OAuth) 
+
 Dependencies: 
 TimeAgo, IPinfo, React-loader-spinner
 
