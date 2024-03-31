@@ -10,8 +10,8 @@ export default function Sidebar () {
     const pathname = usePathname();
     const router = useRouter();
     const[userID, setUserID] = useState(null);
-    const activeElement = "md:text-md text-sm flex md:gap-1 md:gap-3 py-2 mb-2 bg-socialBlue text-white md:-mx-4 md:px-8 px-6 rounded-md shadow-md shadow-gray-300";
-    const inactiveElement = "md:text-md text-sm flex md:gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 md:-mx-2 md:px-6 px-6 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300"; 
+    const activeElement = "md:text-md text-sm flex md:gap-1 md:gap-3 py-2 mb-2 bg-socialBlue text-white md:-ml-4 md:px-8 px-6 w-100 rounded-md shadow-md shadow-gray-300";
+    const inactiveElement = "md:text-md text-sm flex md:gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 md:-ml-4 md:px-6 px-6 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300"; 
     
     const handleSignOut = async () => {
         const { data, error } = await supabase.auth.refreshSession();
@@ -33,7 +33,7 @@ export default function Sidebar () {
 
     return(
         <Card noPadding={true}>
-            <div className="z-9999 w-full sticky pl-5 -mr-6 md:mr-4 gap-1 grow p-1 flex justify-evenly items-center text-left md:block shadow-md shadow-gray-500 md:shadow-none pt-1">
+            <div className="z-9999 w-full sticky pl-5 -mr-6 md:mr-6 gap-1 grow p-1 flex justify-evenly items-center text-left md:block shadow-md shadow-gray-500 md:shadow-none pt-1">
                 <h2 className="text-socialBlue text-xl font-bold md:p-1 md:mb-3 hidden md:block">Fab-book</h2>
                 <Link href={"/"} className={pathname === "/" ? activeElement : inactiveElement}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 z-1200">
